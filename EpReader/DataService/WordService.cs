@@ -25,14 +25,24 @@ namespace EpReader.DataService
             using (var document = DocX.Create(fileName))
             {
                 document.InsertParagraph(info.OwnerFamily + " " + info.OwnerName + " " + info.OwnerSname).FontSize(15d).SpacingAfter(20d).Alignment = Alignment.center;
-                document.InsertParagraph(info.OwnerSex);
-                document.InsertParagraph(info.OwnerBdate);
-                document.InsertParagraph(info.OwnerBplace).SpacingAfter(5d);
+                document.InsertParagraph(GetAttribute(nameof(info.OwnerSex)) + ": " + info.OwnerSex);
+                document.InsertParagraph(GetAttribute(nameof(info.OwnerBdate)) + ": " + info.OwnerBdate);
+                document.InsertParagraph(GetAttribute(nameof(info.OwnerBplace)) + ": " + info.OwnerBplace).SpacingAfter(5d);
 
-                document.InsertParagraph(info.PoliceNumber);
-                document.InsertParagraph(info.PoliceDate);
-                document.InsertParagraph(info.PoliceLong);
-                document.InsertParagraph(info.PoliceSnils);
+                document.InsertParagraph(GetAttribute(nameof(info.PoliceNumber)) + ": " + info.PoliceNumber);
+                document.InsertParagraph(GetAttribute(nameof(info.PoliceDate)) + ": " + info.PoliceDate);
+                document.InsertParagraph(GetAttribute(nameof(info.PoliceLong)) + ": " + info.PoliceLong);
+                document.InsertParagraph(GetAttribute(nameof(info.PoliceSnils)) + ": " + info.PoliceSnils).SpacingAfter(5d);
+
+                document.InsertParagraph(GetAttribute(nameof(info.Gcode)) + ": " + info.Gcode);
+                document.InsertParagraph(GetAttribute(nameof(info.Gtext)) + ": " + info.Gtext).SpacingAfter(5d);
+
+                document.InsertParagraph(GetAttribute(nameof(info.SmoRegion)) + ": " + info.SmoRegion);
+                document.InsertParagraph(GetAttribute(nameof(info.SmoName)) + ": " + info.SmoName);
+                document.InsertParagraph(GetAttribute(nameof(info.SmoOgrn)) + ": " + info.SmoOgrn);
+                document.InsertParagraph(GetAttribute(nameof(info.SmoOkato)) + ": " + info.SmoOkato);
+                document.InsertParagraph(GetAttribute(nameof(info.SmoBegin)) + ": " + info.SmoBegin);
+                document.InsertParagraph(GetAttribute(nameof(info.SmoEnd)) + ": " + info.SmoEnd);
 
                 document.Save();
             }
@@ -50,6 +60,11 @@ namespace EpReader.DataService
                 }
                 catch { }
             }
+        }
+
+        private string GetAttribute(string propertyName)
+        {
+            return typeof(InfoModel).GetProperty(propertyName).GetCustomAttributesData().First() .ConstructorArguments.First().Value.ToString();
         }
     }
 }
