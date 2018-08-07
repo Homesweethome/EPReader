@@ -22,7 +22,7 @@ namespace EpReader.DataService
         /// <summary>
         /// Инициализация считывателя карт
         /// </summary>
-        public bool InitializeReader(ref PCSCReadersManager cardManager)
+        public bool InitializeReader(PCSCReadersManager cardManager)
         {
             bool flag = false;
             try
@@ -41,14 +41,14 @@ namespace EpReader.DataService
         /// <summary>
         /// Инициализация карты
         /// </summary>
-        public bool InitializeCard(ref PCSCReadersManager cardManager, ref PolicySmartcardBase Policy)
+        public bool InitializeCard(PCSCReadersManager cardManager, PolicySmartcardBase policy)
         {
             bool flag;
             try
             {
                 ISCard card = cardManager[cardManager.OfType<ISCard>().ToList().First().ReaderName];
-                Policy = new PolicySmartcardBase(card);
-                Policy.Connect();
+                policy = new PolicySmartcardBase(card);
+                policy.Connect();
                 flag = true;
             }
             catch (Exception ex)
@@ -62,12 +62,12 @@ namespace EpReader.DataService
         /// <summary>
         /// Чтение информации с карты
         /// </summary>
-        public InfoModel ReadInformation(ref PolicySmartcardBase policy)
+        public InfoModel ReadInformation(PolicySmartcardBase policy)
         {
             var result = new InfoModel
             {
-                Owner = ReadOwnerInformation(ref policy),
-                Smo = ReadSMOInformation(ref policy)
+                Owner = ReadOwnerInformation(policy),
+                Smo = ReadSMOInformation(policy)
             };
             return result;
         }
@@ -75,7 +75,7 @@ namespace EpReader.DataService
         /// <summary>
         /// Информация о владельце карты
         /// </summary>
-        public OwnerModel ReadOwnerInformation(ref PolicySmartcardBase policy)
+        public OwnerModel ReadOwnerInformation(PolicySmartcardBase policy)
         {
             OwnerModel result = new OwnerModel();
             OwnerInformation ownerInformation = policy.GetOwnerInformation();
@@ -111,7 +111,7 @@ namespace EpReader.DataService
         /// <summary>
         /// Информация об СМО
         /// </summary>
-        public SmoModel ReadSMOInformation(ref PolicySmartcardBase policy)
+        public SmoModel ReadSMOInformation(PolicySmartcardBase policy)
         {
             SmoModel result = new SmoModel();
             SMOInformation currentSmoInformation = policy.GetCurrentSMOInformation();

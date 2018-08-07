@@ -9,26 +9,26 @@ namespace EpReader.DataService
         /// <summary>
         /// Инициализация считывателя карт
         /// </summary>
-        bool InitializeReader(ref PCSCReadersManager cardManager);
+        bool InitializeReader(PCSCReadersManager cardManager);
 
         /// <summary>
         /// Инициализация карты
         /// </summary>
-        bool InitializeCard(ref PCSCReadersManager cardManager, ref PolicySmartcardBase Policy);
+        bool InitializeCard(PCSCReadersManager cardManager, PolicySmartcardBase policy);
 
         /// <summary>
         /// Чтение информации с карты
         /// </summary>
-        InfoModel ReadInformation(ref PolicySmartcardBase policy);
+        InfoModel ReadInformation(PolicySmartcardBase policy);
 
         /// <summary>
         /// Информация о владельце карты
         /// </summary>
-        OwnerModel ReadOwnerInformation(ref PolicySmartcardBase policy);
+        OwnerModel ReadOwnerInformation(PolicySmartcardBase policy);
 
         /// <summary>
         /// Информация об СМО
         /// </summary>
-        SmoModel ReadSMOInformation(ref PolicySmartcardBase policy);
+        SmoModel ReadSMOInformation(PolicySmartcardBase policy);
     }
 }
