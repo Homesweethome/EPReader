@@ -8,14 +8,14 @@
         mc:Ignorable="d"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         WindowStartupLocation="CenterScreen"
-        Title="МГФОМС (Электронный полис)" Height="830" Width="764">
+        Title="МГФОМС (Электронный полис)" Height="760" Width="764">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <pt:PropertyGrid Grid.Row="0" SelectedObject="{Binding Information}"/>
+        <pt:PropertyGrid Grid.Row="0" SelectedObject="{Binding Information}" CategoryControlType="Template" TabVisibility="Collapsed" />
         <Button Grid.Row="1" Content="Создать документ" Command="{Binding PrintInfoCommand}" Height="60"/>
         <StatusBar Grid.Row="2">
             <StatusBarItem>
